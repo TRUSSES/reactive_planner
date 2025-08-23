@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>object_pose_interface_msgs</name>
+  <version>0.0.0</version>
+  <description>Object Pose Interface Messages</description>
+
+  <maintainer email="vvasilo@seas.upenn.edu">Vasileios Vasilopoulos</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend> 
+  <depend>roscpp</depend>
+  <depend>rosidl_default_generators</depend>
+  <depend>rosidl_default_runtime</depend>
+  <depend>builtin_interfaces</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2_geometry_msgs</depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+   <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+
+</package>
