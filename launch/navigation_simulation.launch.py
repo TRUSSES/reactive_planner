@@ -93,7 +93,7 @@ def generate_launch_description():
         DeclareLaunchArgument('sub_robot_topic', default_value='/odom'),
         DeclareLaunchArgument('sub_laser_topic', default_value='/scan'),
         #DeclareLaunchArgument('sub_laser_topic', default_value='/fake_lidar_scan'),
-        DeclareLaunchArgument('sub_semantic_topic', default_value='/pose_tracking/semantic_map'),
+        DeclareLaunchArgument('sub_semantic_topic', default_value='/semantic_map'),
 
         DeclareLaunchArgument('world_frame_id', default_value='map'),
         DeclareLaunchArgument('odom_frame_id', default_value='odom'),
@@ -165,25 +165,6 @@ def generate_launch_description():
 
                     'DebugFlag': False,
                     #'SimulationFlag': True, # Publish msgs for Foxglove visualization
-                }
-            ]
-        ),
-
-        Node(
-            package='semnav',  
-            executable='fake_map_publisher',  
-            namespace='reactive_planner',
-            name='fake_map_publisher',
-            output='screen',
-            condition=IfCondition(fake_map),
-            parameters=[
-                planner_config,
-                {
-                    'pub_semantic_topic': '/pose_tracking/semantic_map',  
-                    'pub_transform_topic': '/pose_tracking/world_frame', 
-                    #'obstacle_file': obstacle_file, 
-                    #'x_pose': x_pose,
-                    #'y_pose': y_pose
                 }
             ]
         ),

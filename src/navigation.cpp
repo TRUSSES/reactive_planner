@@ -65,7 +65,7 @@ class NavigationNode : public rclcpp::Node {
 			//this->declare_parameter("sub_laser_topic", "/laser_scan");
 			this->declare_parameter("sub_laser_topic", "/fake_lidar_scan");
 			this->declare_parameter("sub_robot_topic", "/robot_pose");
-			this->declare_parameter("sub_semantic_topic", "/semantic_map");
+			this->declare_parameter("sub_semantic_topic", "/pose_tracking/semantic_map");
 
 			this->declare_parameter("world_frame_id", "world");
 			this->declare_parameter("odom_frame_id", "odom");
@@ -205,6 +205,10 @@ class NavigationNode : public rclcpp::Node {
 
 			// Register callbacks
 			RCLCPP_INFO_STREAM(rclcpp::get_logger("rclcpp"), "[Navigation] Registering Callback");
+			
+			sub_semantic = this->create_subscription<object_pose_interface_msgs::msg::SemanticMapObjectArray>(
+				sub_semantic_topic_, 1,
+				std::bind(&NavigationNode::diffeo_tree_update, this, std::placeholders::_1));
 
 			sub_laser.subscribe(this, sub_laser_topic_);
 			sub_robot.subscribe(this, sub_robot_topic_);
@@ -227,10 +231,6 @@ class NavigationNode : public rclcpp::Node {
 					std::placeholders::_2
 				)
 			);
-
-			sub_semantic = this->create_subscription<object_pose_interface_msgs::msg::SemanticMapObjectArray>(
-				sub_semantic_topic_, 1,
-				std::bind(&NavigationNode::diffeo_tree_update, this, std::placeholders::_1));
 
 			// Publish zero commands
 			//RCLCPP_INFO_STREAM(rclcpp::get_logger("rclcpp"), "[Navigation] Publishing 0 command");
@@ -342,7 +342,7 @@ class NavigationNode : public rclcpp::Node {
 			 * Input:
 			 * 	1) semantic_map_data: A SemanticMapObjectArray object
 			 */
-			// RCLCPP_INFO_STREAM(rclcpp::get_logger("rclcpp"), "[Navigation] Updating Diffeo Trees");
+			RCLCPP_INFO_STREAM(rclcpp::get_logger("rclcpp"), "[Navigation] Updating Diffeo Trees");
 
 			// Check if update is needed
 			// std::cout << DiffeoTreeUpdateRate_ << std::endl;
@@ -354,9 +354,9 @@ class NavigationNode : public rclcpp::Node {
 			}
 
 			// Assume map is static; do not recalculate once map is set.
-			if (DiffeoTreeArray_.size() > 0) {
+			/*if (DiffeoTreeArray_.size() > 0) {
 				return;
-			}
+			}*/
 
             rclcpp::Time time = this->now();
 		    if (DiffeoTreeUpdateRate_ <= 0) {
@@ -737,8 +737,8 @@ class NavigationNode : public rclcpp::Node {
 			// RCLCPP_INFO_STREAM(this->get_logger(), "[Navigation] Computed model space projections." << bg::dsv(LGA_model));
 
 			if (SimulationFlag_) {
-				marker_add_point(LGL_model.get<0>(), LGL_model.get<1>(), 1.0, 1.0, 0.0, 0.5); // yellow
-				marker_add_point(LGA_model.get<0>(), LGA_model.get<1>(), 1.0, 0.5, 0.8, 0.5); // pink
+				marker_add_point(LGL_model.get<0>(), LGL_model.get<1>(), 1.0, 1.0, 0.0, 0.2); // yellow
+				marker_add_point(LGA_model.get<0>(), LGA_model.get<1>(), 1.0, 0.5, 0.8, 0.2); // pink
 			}
 
 			// Plot debugging
@@ -835,10 +835,10 @@ class NavigationNode : public rclcpp::Node {
 			}
 
 			// Add goal
-			marker_add_point(Goal_x_, Goal_y_, 0.0, 1.0, 0.0, 1.0);
+			marker_add_point(Goal_x_, Goal_y_, 0.0, 1.0, 0.0, 0.2);
 
 			// Add trajectory
-			marker_add_path(trajectory_, 0.0, 0.0, 1.0, 1.0);
+			marker_add_path(trajectory_, 0.0, 0.0, 1.0, 0.2);
 
 			pub_marker_->publish(marker_array_);
 			RCLCPP_INFO(this->get_logger(), "published marker array");
@@ -858,7 +858,7 @@ class NavigationNode : public rclcpp::Node {
 			marker.id = marker_id_counter_++;
 			marker.type = visualization_msgs::msg::Marker::LINE_STRIP;
 			marker.action = visualization_msgs::msg::Marker::ADD;
-			marker.scale.x = 1.0;
+			marker.scale.x = 0.3;
 		
 			marker.color.r = r;
 			marker.color.g = g;
@@ -887,7 +887,7 @@ class NavigationNode : public rclcpp::Node {
 			marker.id = marker_id_counter_++;
 			marker.type = visualization_msgs::msg::Marker::LINE_STRIP;
 			marker.action = visualization_msgs::msg::Marker::ADD;
-			marker.scale.x = 1.0;
+			marker.scale.x = scale;
 		
 			marker.color.r = r;
 			marker.color.g = g;

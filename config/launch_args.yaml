@@ -1,18 +1,18 @@
 # 1 unit = 0.5 meters (e.g. x=3 corresponds to x=1.5 meters IRL)
 robot_config:
   use_sim_time: true
-  x_pose: 11.0  # Initial x-coordinate (m)
-  y_pose: 3.0  # Initial y-coordinate (m)
-  yaw: 1.57     # Initial orientation (rad)
+  x_pose: 0.0  # Initial x-coordinate (m)
+  y_pose: 8.0  # Initial y-coordinate (m)
+  yaw: -1.57     # Initial orientation (rad)
 
 planner_config:
-  obstacle_file: 'stiffness_map6_obstacles.csv'  # Obstacle map stored in data/obstacle_maps/
-  Goal_x: 28.0  # Goal x-coordinate (m)
-  Goal_y: 13.0  # Goal y-coordinate (m)
+  obstacle_file: 'stiffness_map7_obstacles.csv'  # Obstacle map stored in data/obstacle_maps/
+  Goal_x: 8.0  # Goal x-coordinate (m)
+  Goal_y: -5.0  # Goal y-coordinate (m)
   RobotRadius: 1.0 # Radius of circle containing robot (m)
-  ObstacleDilation: 0.3  # Collar by which obstacles are extended for safety (m)
-  Epsilon: 2.0  # Collar used in switching function to change behavior near dilated obstacle boundary (m)
-  VarEpsilon: 2.0
+  ObstacleDilation: 0.1  # Collar by which obstacles are extended for safety (m)
+  Epsilon: 5.0  # Collar used in switching function to change behavior near dilated obstacle boundary (m)
+  VarEpsilon: 5.0
   WorkspaceMinX: -300.0    # X-coord of bottom-left corner of bounding box
   WorkspaceMinY: -300.0    # Y-coord of bottom-left corner of bounding box
   WorkspaceMaxX: 300.0  # X-coord of top-right corner of bounding box
@@ -20,9 +20,9 @@ planner_config:
   SimulationFlag: true # Visualize trajectory in real-time with Foxglove while running sim.
 
 recording_config:
-  path_output_file: 'stiffness_map6_path.csv' # Output file in which trajectory data will be stored.
+  path_output_file: 'stiffness_map7_path.csv' # Output file in which trajectory data will be stored.
 
 risk_map_config:
-  risk_in_file: 'stiffness_map6.csv' # Risk map stored in /data/risk_maps
-  obstacle_out_file: 'stiffness_map6_obstacles.csv' # File in /data/obstacle_maps to store extracted obstacles
+  risk_in_file: 'stiffness_map7.csv' # Risk map stored in /data/risk_maps
+  obstacle_out_file: 'stiffness_map7_obstacles.csv' # File in /data/obstacle_maps to store extracted obstacles
   threshold: 60.0 # Risk threshold below which region is considered unsafe; used for obstacle extraction.

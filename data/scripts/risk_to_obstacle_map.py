@@ -246,7 +246,7 @@ def save_obstacle_csv(df, polygon_list, out_filename):
 
         # select n evenly spaced coords.
         print('old length of obstacle CSV polygon coords: ', len(coords))
-        _, coords = select_evenly_spaced_ticks(coords, 50)
+        #_, coords = select_evenly_spaced_ticks(coords, 100)
         print('new length of obstacle CSV polygon coords: ', len(coords))
 
         for coord in coords:
