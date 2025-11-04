@@ -58,6 +58,7 @@ include_directories(
   ${object_pose_interface_msgs_INCLUDE_DIRS}
   ${example_interfaces_INCLUDE_DIRS}
   ${foxglove_msgs_INCLUDE_DIRS}
+  ${trusses_custom_interfaces_INCLUDE_DIRS}
 )
 
 ## Declare C++ libraries
@@ -86,6 +87,7 @@ target_include_directories(reactive_planner PRIVATE
   ${object_pose_interface_msgs_INCLUDE_DIRS}
   ${example_interfaces_INCLUDE_DIRS}
   ${foxglove_msgs_INCLUDE_DIRS}
+  ${trusses_custom_interfaces_INCLUDE_DIRS}
 )
 
 target_link_libraries(reactive_planner
@@ -111,9 +113,17 @@ target_link_libraries(reactive_planner
 add_executable(navigation 
   ${MAIN_DIR}/src/navigation.cpp
 )
+ament_target_dependencies(navigation
+  rclcpp
+  trusses_custom_interfaces
+)
 
 add_executable(fake_map_publisher 
   ${MAIN_DIR}/src/fake_map_publisher.cpp
+)
+ament_target_dependencies(fake_map_publisher
+  rclcpp
+  trusses_custom_interfaces
 )
 
 add_executable(fake_lidar_publisher 
@@ -127,6 +137,10 @@ add_executable(fake_odometry_publisher
 # ament_package()
 add_executable(turtlebot3_map_publisher 
   ${MAIN_DIR}/src/turtlebot3_map_publisher.cpp
+)
+ament_target_dependencies(turtlebot3_map_publisher
+  rclcpp
+  trusses_custom_interfaces
 )
 
 add_executable(vector_field_plot 

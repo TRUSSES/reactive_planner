@@ -25,7 +25,7 @@
 #include <reactive_planner_lib.h>
 #include <rclcpp/qos.hpp>
 #include <rmw/types.h>
-#include <object_pose_interface_msgs/msg/semantic_map_object_array.hpp>
+#include <trusses_custom_interfaces/msg/semantic_map_object_array.hpp>
 #include <geometry_msgs/msg/twist_stamped.hpp>
 #include <example_interfaces/msg/u_int32.hpp>
 #include <foxglove_msgs/msg/geo_json.hpp>
@@ -65,7 +65,7 @@ class NavigationNode : public rclcpp::Node {
 			//this->declare_parameter("sub_laser_topic", "/laser_scan");
 			this->declare_parameter("sub_laser_topic", "/fake_lidar_scan");
 			this->declare_parameter("sub_robot_topic", "/robot_pose");
-			this->declare_parameter("sub_semantic_topic", "/pose_tracking/semantic_map");
+			this->declare_parameter("sub_semantic_topic", "/semantic_map");
 
 			this->declare_parameter("world_frame_id", "world");
 			this->declare_parameter("odom_frame_id", "odom");
@@ -206,8 +206,8 @@ class NavigationNode : public rclcpp::Node {
 			// Register callbacks
 			RCLCPP_INFO_STREAM(rclcpp::get_logger("rclcpp"), "[Navigation] Registering Callback");
 			
-			sub_semantic = this->create_subscription<object_pose_interface_msgs::msg::SemanticMapObjectArray>(
-				sub_semantic_topic_, 1,
+			sub_semantic = this->create_subscription<trusses_custom_interfaces::msg::SemanticMapObjectArray>(
+				sub_semantic_topic_, 10,
 				std::bind(&NavigationNode::diffeo_tree_update, this, std::placeholders::_1));
 
 			sub_laser.subscribe(this, sub_laser_topic_);
@@ -335,7 +335,7 @@ class NavigationNode : public rclcpp::Node {
 			}
 		}
 
-		void diffeo_tree_update(const object_pose_interface_msgs::msg::SemanticMapObjectArray::ConstPtr& semantic_map_data) {
+		void diffeo_tree_update(const trusses_custom_interfaces::msg::SemanticMapObjectArray::ConstPtr& semantic_map_data) {
 			/**
 			 * Function that updates the semantic map polygons to be used by the control callback
 			 * 
@@ -848,7 +848,7 @@ class NavigationNode : public rclcpp::Node {
 			marker_id_counter_ = 0;
 		}
 
-		void marker_add_poly(const object_pose_interface_msgs::msg::SemanticMapObject &poly,
+		void marker_add_poly(const trusses_custom_interfaces::msg::SemanticMapObject &poly,
 			float r, float g, float b) {
 
 			visualization_msgs::msg::Marker marker;
@@ -940,7 +940,7 @@ class NavigationNode : public rclcpp::Node {
 		rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr pub_twist_stamped_;
 		rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pub_marker_;
 
-        rclcpp::Subscription<object_pose_interface_msgs::msg::SemanticMapObjectArray>::SharedPtr sub_semantic;
+        rclcpp::Subscription<trusses_custom_interfaces::msg::SemanticMapObjectArray>::SharedPtr sub_semantic;
         std::shared_ptr<message_filters::Synchronizer<
                     message_filters::sync_policies::ApproximateTime<
                     sensor_msgs::msg::LaserScan, nav_msgs::msg::Odometry>>> sync;
@@ -948,7 +948,7 @@ class NavigationNode : public rclcpp::Node {
 		message_filters::Subscriber<nav_msgs::msg::Odometry> sub_robot;
 
 		// For Foxglove simulation
-		object_pose_interface_msgs::msg::SemanticMapObjectArray latest_map;
+		trusses_custom_interfaces::msg::SemanticMapObjectArray latest_map;
 		std::vector<std::array<double, 2>> trajectory_;
 		visualization_msgs::msg::MarkerArray marker_array_;
 		int marker_id_counter_;

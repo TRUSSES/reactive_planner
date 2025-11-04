@@ -10,9 +10,9 @@ planner_config:
   Goal_x: 8.0  # Goal x-coordinate (m)
   Goal_y: 15.0  # Goal y-coordinate (m)
   RobotRadius: 1.0 # Radius of circle containing robot (m)
-  ObstacleDilation: 0.1  # Collar by which obstacles are extended for safety (m)
-  Epsilon: 2.0  # Collar used in switching function to change behavior near dilated obstacle boundary (m)
-  VarEpsilon: 2.0
+  ObstacleDilation: 0.5  # Collar by which obstacles are extended for safety (m)
+  Epsilon: 3.0  # Collar used in switching function to change behavior near dilated obstacle boundary (m)
+  VarEpsilon: 3.0
   WorkspaceMinX: 0.0    # X-coord of bottom-left corner of bounding box
   WorkspaceMinY: 0.0    # Y-coord of bottom-left corner of bounding box
   WorkspaceMaxX: 10.0  # X-coord of top-right corner of bounding box

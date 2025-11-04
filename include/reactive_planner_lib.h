@@ -51,8 +51,8 @@
 #include <sensor_msgs/msg/laser_scan.hpp>
 #include <nav_msgs/msg/odometry.hpp>
 #include <example_interfaces/msg/u_int32.hpp>
-#include <object_pose_interface_msgs/msg/keypoint_detections3_d.hpp>
-#include <object_pose_interface_msgs/msg/semantic_map_object_array.hpp>
+//#include <object_pose_interface_msgs/msg/keypoint_detections3_d.hpp>
+//#include <object_pose_interface_msgs/msg/semantic_map_object_array.hpp>
 #include <geometry_msgs/msg/point_stamped.hpp>
 
 // Local imports
