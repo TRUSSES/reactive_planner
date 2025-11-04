@@ -99,6 +99,7 @@ def generate_launch_description():
         DeclareLaunchArgument('odom_frame_id', default_value='odom'),
         DeclareLaunchArgument('laser_frame_id', default_value='laser'),
 
+        # For fake map publisher
         DeclareLaunchArgument('obstacle_file', default_value='1x1rect.csv'),
 
         # Gazebo and TurtleBot3 commands

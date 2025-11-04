@@ -1,22 +1,22 @@
 # 1 unit = 0.5 meters (e.g. x=3 corresponds to x=1.5 meters IRL)
 robot_config:
   use_sim_time: true
-  x_pose: 0.0  # Initial x-coordinate (m)
-  y_pose: 8.0  # Initial y-coordinate (m)
-  yaw: -1.57     # Initial orientation (rad)
+  x_pose: 1.0  # Initial x-coordinate (m)
+  y_pose: 1.0  # Initial y-coordinate (m)
+  yaw: 1.57     # Initial orientation (rad)
 
 planner_config:
   obstacle_file: 'stiffness_map7_obstacles.csv'  # Obstacle map stored in data/obstacle_maps/
   Goal_x: 8.0  # Goal x-coordinate (m)
-  Goal_y: -5.0  # Goal y-coordinate (m)
+  Goal_y: 15.0  # Goal y-coordinate (m)
   RobotRadius: 1.0 # Radius of circle containing robot (m)
   ObstacleDilation: 0.1  # Collar by which obstacles are extended for safety (m)
-  Epsilon: 5.0  # Collar used in switching function to change behavior near dilated obstacle boundary (m)
-  VarEpsilon: 5.0
-  WorkspaceMinX: -300.0    # X-coord of bottom-left corner of bounding box
-  WorkspaceMinY: -300.0    # Y-coord of bottom-left corner of bounding box
-  WorkspaceMaxX: 300.0  # X-coord of top-right corner of bounding box
-  WorkspaceMaxY: 300.0  # Y-coord of top-right corner of bounding box
+  Epsilon: 2.0  # Collar used in switching function to change behavior near dilated obstacle boundary (m)
+  VarEpsilon: 2.0
+  WorkspaceMinX: 0.0    # X-coord of bottom-left corner of bounding box
+  WorkspaceMinY: 0.0    # Y-coord of bottom-left corner of bounding box
+  WorkspaceMaxX: 10.0  # X-coord of top-right corner of bounding box
+  WorkspaceMaxY: 40.0  # Y-coord of top-right corner of bounding box
   SimulationFlag: true # Visualize trajectory in real-time with Foxglove while running sim.
 
 recording_config:
