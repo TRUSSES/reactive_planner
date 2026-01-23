@@ -1,28 +1,30 @@
-# 1 unit = 0.5 meters (e.g. x=3 corresponds to x=1.5 meters IRL)
+# Unit = resolution of map
 robot_config:
   use_sim_time: true
-  x_pose: 1.0  # Initial x-coordinate (m)
-  y_pose: 1.0  # Initial y-coordinate (m)
+  x_pose: 2.0  # Initial x-coordinate (m)
+  y_pose: 2.0  # Initial y-coordinate (m)
   yaw: 1.57     # Initial orientation (rad)
 
 planner_config:
-  obstacle_file: 'stiffness_map7_obstacles.csv'  # Obstacle map stored in data/obstacle_maps/
-  Goal_x: 8.0  # Goal x-coordinate (m)
-  Goal_y: 15.0  # Goal y-coordinate (m)
-  RobotRadius: 1.0 # Radius of circle containing robot (m)
-  ObstacleDilation: 0.5  # Collar by which obstacles are extended for safety (m)
-  Epsilon: 3.0  # Collar used in switching function to change behavior near dilated obstacle boundary (m)
-  VarEpsilon: 3.0
-  WorkspaceMinX: 0.0    # X-coord of bottom-left corner of bounding box
-  WorkspaceMinY: 0.0    # Y-coord of bottom-left corner of bounding box
-  WorkspaceMaxX: 10.0  # X-coord of top-right corner of bounding box
-  WorkspaceMaxY: 40.0  # Y-coord of top-right corner of bounding box
-  SimulationFlag: true # Visualize trajectory in real-time with Foxglove while running sim.
-
-recording_config:
-  path_output_file: 'stiffness_map7_path.csv' # Output file in which trajectory data will be stored.
-
-risk_map_config:
-  risk_in_file: 'stiffness_map7.csv' # Risk map stored in /data/risk_maps
-  obstacle_out_file: 'stiffness_map7_obstacles.csv' # File in /data/obstacle_maps to store extracted obstacles
-  threshold: 60.0 # Risk threshold below which region is considered unsafe; used for obstacle extraction.
+  ObstacleDilation: 1.0         # Safety margin for obstacles (m)
+  WalkHeight: 0.5
+  RFunctionExponent: 20.0
+  Epsilon: 2.0                  # Switching function collar (m)
+  VarEpsilon: 2.0
+  Mu1: 0.8
+  Mu2: 0.05
+  WorkspaceMinX: -10.0
+  WorkspaceMinY: -10.0
+  WorkspaceMaxX: 20.0
+  WorkspaceMaxY: 50.0
+  AllowableRange: 4.0
+  CutoffRange: 0.15
+  SemanticMapUpdateRate: 10.0 # Hz
+  LowpassCutoff: 4.0
+  LowpassSampling: 25.0
+  LowpassOrder: 6.0
+  LowpassSamples: 10.0
+  DebugFlag: False
+  SimulationFlag: False # visualize path in Foxglove
+  Goal_x: 8.0
+  Goal_y: 15.0

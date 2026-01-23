@@ -1,0 +1,8 @@
+name: robot1
+start:
+  x: 1.0
+  y: 5.0
+  yaw: 1.57
+goal:
+  x: 5.0
+  y: 16.0

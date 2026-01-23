@@ -1,0 +1,8 @@
+name: robot0
+start:
+  x: 4.0
+  y: 22.0
+  yaw: 0.0
+goal:
+  x: 5.0
+  y: 16.0
